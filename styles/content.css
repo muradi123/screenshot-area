@@ -1,0 +1,16 @@
+	
+
+#selection {
+    position: absolute;
+    background: rgba(0,0,0,0);
+    border: 1px solid #0c65a5;
+}
+
+#selection.complete {
+    background: rgba(0,0,0,0);
+    border-color: #0CA50E;
+}
+
+#dfd{
+  background-color: red;
+}

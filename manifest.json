@@ -1,0 +1,39 @@
+{
+    "name": "Screenshoter",
+    "description" : "Screenshoter",
+    "version": "0.1",
+    "icons":{
+        "128":"./images/screen128.png",
+        "64":"./images/screen64.png",
+        "16":"./images/screen16.png"
+    },
+
+    "manifest_version": 2,
+    "browser_action": {
+      "default_icon": "./images/screen16.png"
+    },
+
+   
+    "permissions": ["<all_urls>", "activeTab", "tabs", "storage", "http://*/",
+      "https://*/", "downloads",  "contentSettings" ],
+
+    "background": {
+      "scripts": ["./scripts/jquery.js", "./scripts/background.js"]
+    },
+    "web_accessible_resources":[
+      "./images/*.png"
+    ],
+    
+    
+    "content_scripts": [
+        {
+          "run_at":"document_end",
+          "matches": ["<all_urls>"],
+          "js": ["./scripts/jquery.js", "./scripts/html2canvas.js", "./scripts/content.js"],
+            "css": [ 
+            "/styles/content.css"
+      ]
+        }
+      ]   
+    
+}  
