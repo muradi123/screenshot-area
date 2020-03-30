@@ -1,9 +1,9 @@
-	
 
 #selection {
     position: absolute;
     background: rgba(0,0,0,0);
-    border: 1px solid #0c65a5;
+    outline: 2px dashed  #0823FF;
+    z-index: 34534534854;
 }
 
 #selection.complete {
@@ -11,6 +11,6 @@
     border-color: #0CA50E;
 }
 
-#dfd{
-  background-color: red;
+*::selection {
+    background: rgba(255,255,255,0); 
 }

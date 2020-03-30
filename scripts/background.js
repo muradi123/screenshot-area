@@ -16,28 +16,21 @@ chrome.runtime.onMessage.addListener(
          // here we create a new image
 function createImage(dataURL) {
     // create a canvas
-    var canvas = createCanvas(w, h);
+    let canvas = createCanvas(w, h);
     // get the context of your canvas
-    var context = canvas.getContext('2d');
+    let context = canvas.getContext('2d');
     // create a new image object
-    var croppedImage = new Image();
+    let croppedImage = new Image();
 
     croppedImage.onload = function() {
-         
-        // this is where you manipulate the screenshot (cropping)
-        // parameter 1: source image (screenshot)
-        // parameter 2: source image x coordinate
-        // parameter 3: source image y coordinate
-        // parameter 4: source image width
-        // parameter 5: source image height
-        // parameter 6: destination x coordinate
-        // parameter 7: destination y coordinate
-        // parameter 8: destination width
-        // parameter 9: destination height
         context.drawImage(croppedImage, x, y, w, h, 0, 0, w, h );
 
         // canvas.toDataURL() contains your cropped image
-        console.log(canvas.toDataURL());
+        let croppedimg = canvas.toDataURL();
+        var a = document.createElement("a"); //Create <a>
+        a.href = `${croppedimg}`; //Image Base64 Goes here
+        a.download = "Image.png"; //File name Here
+        a.click();
     };
     croppedImage.src = dataURL; // screenshot (full image)
 }
@@ -62,7 +55,9 @@ function createScreenshot(callback) {
             createImage(dataURL);
         });
         return true;
+
         }
+    
     });
 
 

@@ -1,31 +1,23 @@
 chrome.runtime.onMessage.addListener(
   function({message}, sender, sendResponse) {
     if (message === "click"){
-
-     
-      
-      let html = `<strong></strong><span id="start"></span>
-                  <strong></strong><span id="end"></span>
-                  <div id="selection"></div>
-                  `;
-                  
+       let html = `<div id="selection"></div>`;        
        document.body.innerHTML += html;
 
+       let start = {};
+       let end = {};
+       let isSelecting = false;
 
-      var start = {};
-      var end = {};
-      var isSelecting = false;
-
-    $(window)
+     $(window)
       // Listen for selection
-     .on('mousedown', function($event) {
+      .on('mousedown', function($event) {
+         document.body.style.pointerEvents = "none";
         // Update our state
         isSelecting = true;
         $('#selection').removeClass('complete');
         start.x = $event.pageX;
         start.y = $event.pageY;
         // Display data in UI
-        $('#start').text('(' + start.x + ',' + start.y + ')');
         
         // Add selection to screen
         $('#selection').css({
@@ -52,21 +44,21 @@ chrome.runtime.onMessage.addListener(
     })
     // listen for end
     .on('mouseup', function($event) {
-      var width = Math.abs(start.x - end.x);
-      var height  = Math.abs(start.y - end.y);
-      var xa = start.x < end.x ? start.x : end.x;
-      var ya =  start.y;
-      console.log(ya)
+      document.body.style.pointerEvents = "auto";
+      let ya =  start.y;
+      let height  =  Math.abs(start.y - end.y);
+      let width = Math.abs(start.x - end.x);
+      let xa = start.x < end.x ? start.x : end.x;
+      
        chrome.runtime.sendMessage({
                         handle: 'background',
-                        points: [ya, height, xa, width]
+                        points: [ya - pageYOffset, height, xa, width]
                     });
         // Update our state
         isSelecting = false;
         $('#selection').addClass('complete');
-        // Display data in UI
         $('#end').text('(' + end.x + ',' + end.y + ')');
-        
+        document.getElementById('selection').remove();
     });           
   }
 
