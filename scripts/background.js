@@ -5,7 +5,9 @@ chrome.browserAction.onClicked.addListener(function (){
 });
 })
 
-
+function openNewPage(){
+  chrome.tabs.create({'url': chrome.extension.getURL('newPage.html')});
+}
 chrome.runtime.onMessage.addListener(
     function(msg, sender, sendResponse) {
         if (msg.handle ==='background' && msg.points) {
@@ -25,12 +27,19 @@ function createImage(dataURL) {
     croppedImage.onload = function() {
         context.drawImage(croppedImage, x, y, w, h, 0, 0, w, h );
 
-        // canvas.toDataURL() contains your cropped image
+        canvas.toDataURL();
+        //cropped image 
         let croppedimg = canvas.toDataURL();
-        var a = document.createElement("a"); //Create <a>
-        a.href = `${croppedimg}`; //Image Base64 Goes here
-        a.download = "Image.png"; //File name Here
-        a.click();
+        
+       
+      chrome.storage.local.set({Img: croppedimg}, function() {
+          console.log(croppedimg);
+        });
+ 
+       // var a = document.createElement("a"); //Create <a>
+       // a.href = `${croppedimg}`; //Image Base64 Goes here
+       // a.download = "Image.png"; //File name Here
+       // a.click();
     };
     croppedImage.src = dataURL; // screenshot (full image)
 }
@@ -53,6 +62,7 @@ function createScreenshot(callback) {
 }
  createScreenshot(function (dataURL) {
             createImage(dataURL);
+            openNewPage();
         });
         return true;
 
