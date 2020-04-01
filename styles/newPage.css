@@ -18,24 +18,33 @@ body {
       margin: 20px 0px;
       top: 10px;
        }
+.cropped-image{
+  margin-top: 35px;
+}
 .save {
         background:#706c61 ;
         font-size: 13px;
         color: #ffffff;
         text-decoration: none;
-        padding: 8px 25px;
+        padding: 8px 15px;
         border-radius: 3px;
         margin-left: 5px; 
         }
    
 
-       .close{
+.close{
        background:#706c61 ;
-       font-size: 13px;
+       font-size: 15px;
        color: #ffffff;
        text-decoration: none;
        padding: 8px 25px;
        border-radius: 3px;
        margin-left: 10px; 
        border:none;
+}
+.close:hover{
+  background:#a4926e;
+}
+.save:hover{
+  background:#a4926e;
 }
